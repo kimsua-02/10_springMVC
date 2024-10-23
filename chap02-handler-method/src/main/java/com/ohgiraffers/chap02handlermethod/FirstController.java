@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.Map;
@@ -81,10 +82,26 @@ public class FirstController {
         return "first/login";
     }
 
+    /*
+    * 4-2. SessionAttribute 를 이용하여 session에 값 담기
+    * 클래스 레벨에 @SessionAttribute 어노테이션을 이용하여 세션에 값을 담을 key 를 설정해두면,
+    * model 영역에 해당 key 로 값이 추가되는 겨우우 Session 에 자동 등록한다.
+    * (@SessionAttribute 로 지정된 속성은 해당 컨드롤러 내에서만 유효하다.)
+    * */
+
+
     @PostMapping("login2")
     public String sesstionTest2(Model model, @RequestParam String id){
         model.addAttribute("id", id);
         return "first/loginResult";
+    }
+
+    // SessionAttribute 로 등록된 값은 session의 상태를 관리하는 sessionStatus 의 setComplete() 메소드를 호출해야 사용이 만료된다.
+
+    @GetMapping("logout2")
+    public String logoutTest2(SessionStatus sessionStatus){
+        sessionStatus.setComplete();
+        return "first/login";
     }
 
 }
