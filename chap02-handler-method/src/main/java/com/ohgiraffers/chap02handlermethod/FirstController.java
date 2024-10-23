@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.context.request.WebRequest;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Map;
 
 @Controller
@@ -101,7 +103,22 @@ public class FirstController {
     @GetMapping("logout2")
     public String logoutTest2(SessionStatus sessionStatus){
         sessionStatus.setComplete();
-        return "first/login";
+        return "first/loginResult";
+    }
+
+    @GetMapping("body")
+    public void body(){}
+
+
+    /*
+    * 5. @RequestBody 를 이용하는 방법
+    * 해당 어노테이션은 http 본문 자체를 읽는 부분을 모델로 변환시켜주는 어노테이션이다.
+    * */
+
+    @PostMapping("body")
+    public void bodyTest(@RequestBody String body) throws UnsupportedEncodingException {
+        System.out.println(body);
+        System.out.println(URLDecoder.decode(body,"UTF-8"));
     }
 
 }
