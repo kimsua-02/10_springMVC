@@ -54,4 +54,18 @@ public class ResolverController {
         return mv;
     }
 
+    @GetMapping("modelandview-redirect")
+    public ModelAndView modelAndViewRedirect(ModelAndView mv){
+        mv.addObject("flashMessage2","test");
+        mv.setViewName("redirect:/");
+        return mv;
+    }
+
+    @GetMapping("modelandview-redirect-attr")
+    public ModelAndView modelAndViewRedirectAttr(ModelAndView mv, RedirectAttributes rttr){
+        rttr.addFlashAttribute("flashMessage2", "ModelAndView 를 이용한 attr");
+        mv.setViewName("redirect:/");
+        return mv;
+    }
+
 }
