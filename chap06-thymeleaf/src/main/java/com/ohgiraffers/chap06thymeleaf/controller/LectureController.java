@@ -42,4 +42,13 @@ public class LectureController {
         mv.setViewName("/lecture/conditional");
         return mv;
     }
+
+    @GetMapping("fragment")
+    public ModelAndView fragment(ModelAndView mv){
+        mv.addObject("test1", "value1");
+        mv.addObject("test2", "value2");
+        mv.setViewName("/lecture/fragment");
+
+        return mv;
+    }
 }
