@@ -17,5 +17,14 @@
         <button type="submit">전송하기</button>
     </form>
     <!-- <input type="file" name="singleFile" multiple> - 여러장 가능 -->
+
+    <br/><br/><br/>
+
+    <form action="multi-file" method="post" enctype="multipart/form-data">
+        파일 : <input type="file" name="multiFile" multiple><br/>
+        파일 설명(쉼표로 구분) : <input type="text" name="multiFileDescription"><br/>
+        <button type="submit">전송</button>
+    </form>
+
 </body>
 </html>
