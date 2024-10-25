@@ -49,5 +49,25 @@
     <div th:object="${member}">
         <p th:text="*{address}"></p>
     </div>
+
+    <h2>HTML 출력 th:text , th:utext </h2>
+    <h3>
+        th:text 는 escape 가 적용되어 태그를 단순 문자열로 처리하지만,
+        th:utext 는 적용되지 않아 태그를 태그로써 인식할 수 있다.
+        (DB 에 태그가 포함된 문자열으로 저장했을 시 유용하다.
+    </h3>
+        <ul>
+            <li th:text="${hello}"></li>
+            <li th:utext="${hello}"></li>
+        </ul>
+
+    <h2>리터럴 치환 ||</h2>
+    <h3>' + ' 를 쓰지 않고 문자열 합치기</h3>
+    <p th:object="${member}" th:text="|name = '*{name}'|"></p>
+    <p th:object="${member}" th:text="|age = '*{age}'|"></p>
+    <p th:object="${member}" th:text="|gender = '*{gender}'|"></p>
+    <p th:object="${member}" th:text="|address = '*{address}'|"></p>
+
+
 </body>
 </html>
