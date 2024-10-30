@@ -1,6 +1,7 @@
 package com.ohgiraffers.understand.exception;
 
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -25,7 +26,8 @@ public class GlobalExceptionHandler {
         return "error/errorMessage";
     }
 
-    @ExceptionHandler(SQLSyntaxErrorException.class)
+    // DB 제약조건 위반 시 발생 에러
+    @ExceptionHandler(DataIntegrityViolationException.class)
     public String SQLSyntaxErrorExceptionHandler(SQLSyntaxErrorException e, Model model) {
         model.addAttribute("message", "쿼리 작성문이 잘못 되었습니다.");
         return "error/errorMessage";
@@ -34,7 +36,7 @@ public class GlobalExceptionHandler {
     // We made error
     @ExceptionHandler(NotInsertNameException.class)
     public String notInsertNameExceptionHandler(NotInsertNameException e, Model model) {
-        model.addAttribute("message", "이미 있는 메뉴 이거나 공란이로다");
+        model.addAttribute("message", "이미 있는 메뉴이거나 공란이로다");
         return "error/errorMessage";
     }
 

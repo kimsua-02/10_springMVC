@@ -2,10 +2,12 @@ package com.ohgiraffers.understand.controller;
 
 
 import com.ohgiraffers.understand.dto.MenuDTO;
+import com.ohgiraffers.understand.exception.NotInsertNameException;
 import com.ohgiraffers.understand.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -58,6 +60,19 @@ public class MenuController {
     @GetMapping("regist")
     public ModelAndView insert(ModelAndView mv) {
         mv.setViewName("menus/regist");
+        return mv;
+    }
+
+    @PostMapping("regist")
+    public ModelAndView insertMenu(ModelAndView mv, MenuDTO menuDTO) throws NotInsertNameException {
+        int regist = menuService.regist(menuDTO);
+        if (regist <= 0) {
+            mv.addObject("message", "가격을 음수일 수 없도다.");
+            mv.setViewName("/error/errorMessage");
+        } else {
+            mv.setViewName("/menus/returnMessage");
+        }
+
         return mv;
     }
 }
