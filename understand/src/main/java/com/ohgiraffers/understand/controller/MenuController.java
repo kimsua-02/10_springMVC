@@ -35,7 +35,7 @@ public class MenuController {
 
     @GetMapping("onemenu")
     public ModelAndView oneMenu(ModelAndView mv) {
-        mv.setViewName("menus/oneMenu");
+        mv.setViewName("menus/onemenu");
         return mv;
     }
 
@@ -43,12 +43,21 @@ public class MenuController {
     public ModelAndView selectOneMenu(ModelAndView mv, MenuDTO menuDTO) {
 
         // onemenu 를 받고 onemenuaction 값을 넘김.
-        List<MenuDTO> menus = menuService.selectAllMenu();
+        MenuDTO onemenu = menuService.selectOneMenu(menuDTO);
 
         // 로직
+        if (Objects.isNull(onemenu)){
+            throw new NullPointerException();
+        }
 
-
+        mv.addObject("menus", onemenu);
         mv.setViewName("menus/allMenus");
+        return mv;
+    }
+
+    @GetMapping("regist")
+    public ModelAndView insert(ModelAndView mv) {
+        mv.setViewName("menus/regist");
         return mv;
     }
 }

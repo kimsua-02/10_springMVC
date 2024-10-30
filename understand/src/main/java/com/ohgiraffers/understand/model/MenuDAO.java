@@ -11,4 +11,5 @@ public interface MenuDAO {
 
     List<MenuDTO> selectAllMenu();
 
+    MenuDTO selectOneMenu(MenuDTO menuDTO);
 }
