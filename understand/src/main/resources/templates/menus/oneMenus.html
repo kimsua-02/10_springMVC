@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table id="onemenutb">
+        <tr>
+            <td>Menu Number</td>
+        </tr>
+        <tr th:each="menu : ${onemenu}">
+            <td th:text="${menu.code}"></td>
+        </tr>
+    </table>
+    <a href="http://localhost:8080"><input type="button" value="돌아가기"></a>
+</body>
+</html>
