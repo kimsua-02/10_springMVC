@@ -18,7 +18,7 @@ public class indexController {
         return mv;
     }
 
-    @GetMapping("user/page")
+    @GetMapping("/user/page")
     public ModelAndView user(ModelAndView mv){
         mv.setViewName("user/user");
         return mv;

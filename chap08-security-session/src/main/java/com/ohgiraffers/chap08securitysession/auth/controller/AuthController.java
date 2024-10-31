@@ -13,14 +13,14 @@ import org.springframework.web.servlet.ModelAndView;
 public class AuthController {
     @GetMapping("login")
     public ModelAndView login(ModelAndView mv) {
-        mv.setViewName("auth/login");
+        mv.setViewName("/auth/login");
         return mv;
     }
 
     @GetMapping("fail")
     public ModelAndView loginFail(@RequestParam String message, ModelAndView mv) {
         mv.addObject("message", message);
-        mv.setViewName("auth/fail");
+        mv.setViewName("/auth/fail");
         return mv;
     }
 }

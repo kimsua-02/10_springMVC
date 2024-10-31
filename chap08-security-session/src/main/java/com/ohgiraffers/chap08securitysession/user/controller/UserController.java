@@ -2,7 +2,7 @@ package com.ohgiraffers.chap08securitysession.user.controller;
 
 
 import com.ohgiraffers.chap08securitysession.user.dto.SignupDTO;
-import com.ohgiraffers.chap08securitysession.user.service.UesrService;
+import com.ohgiraffers.chap08securitysession.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UserController {
 
     @Autowired
-    public UesrService uesrService;
+    public UserService userService;
 
     @GetMapping("/signup")
     public ModelAndView signup(ModelAndView mv) {
@@ -25,8 +25,8 @@ public class UserController {
     }
 
     @PostMapping("signup")
-    public String signup(SignupDTO signgupDTO, RedirectAttributes redirectAttributes) {
-        int result = uesrService.regist(signgupDTO);
+    public String signup(SignupDTO signupDTO, RedirectAttributes redirectAttributes) {
+        int result = userService.regist(signupDTO);
         String message;
 
         if (result > 0) {

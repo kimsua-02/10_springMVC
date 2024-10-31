@@ -4,6 +4,7 @@ package com.ohgiraffers.chap08securitysession.config.handler;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -16,6 +17,7 @@ import java.net.URLEncoder;
 
 // 요청 실패 커스텀 핸들러
 
+@Configuration
 public class AuthFailHandler extends SimpleUrlAuthenticationFailureHandler {
 
 
@@ -25,10 +27,10 @@ public class AuthFailHandler extends SimpleUrlAuthenticationFailureHandler {
         String errorMessage = null;
 
         if (exception instanceof BadCredentialsException) {
-            // 사용자의 아이디가 DB 애 존재하지 않는 경우 or 비밀번호가 맞지 않는 경우
+            // 사용자의 아이디가 DB 에 존재하지 않는 경우 or 비밀번호가 맞지 않는 경우
             errorMessage = "비밀번호가 존재하지 않거나 비밀번호가 일치하지 않습니다.";
         } else if (exception instanceof InternalAuthenticationServiceException) {
-            // 서버에서 사용자 정보를 검증하느 과정에서 발생하는 에러 -- 대부분 잘못된 코드
+            // 서버에서 사용자 정보를 검증하는 과정에서 발생하는 에러 -- 대부분 잘못된 코드
         } else if (exception instanceof AuthenticationCredentialsNotFoundException) {
             // 인증번호가ㅣ 없는 상태에서 보안처리된 리소스에 접근하는 경우
             errorMessage = "인증 요청이 거부되었습니다.";
