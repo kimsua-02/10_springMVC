@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.InputMismatchException;
@@ -67,13 +68,62 @@ public class MenuController {
     public ModelAndView insertMenu(ModelAndView mv, MenuDTO menuDTO) throws NotInsertNameException {
         int regist = menuService.regist(menuDTO);
         if (regist <= 0) {
-            mv.addObject("message", "가격을 음수일 수 없도다.");
+            mv.addObject("message", "가격은 음수일 수 없도다.");
             mv.setViewName("/error/errorMessage");
         } else {
             mv.setViewName("/menus/returnMessage");
         }
-
         return mv;
     }
+
+    @GetMapping("update")
+    public ModelAndView update(ModelAndView mv){
+        mv.setViewName("menus/update");
+        return mv;
+    }
+    @PostMapping("update")
+//    public ModelAndView updateMenu(ModelAndView mv, MenuDTO menuDTO) {
+    public ModelAndView updateMenu(ModelAndView mv,
+                                   @RequestParam int code,
+                                   @RequestParam(defaultValue = "") String name,
+                                   @RequestParam(defaultValue = "0") int price,
+                                   @RequestParam(defaultValue = "0") int categoryCode){
+        MenuDTO menuDTO = new MenuDTO();
+
+        menuDTO.setCode(code);
+        menuDTO.setName(name);
+        menuDTO.setPrice(price);
+        menuDTO.setCategoryCode(categoryCode);
+
+        int update = menuService.update(menuDTO);
+
+
+        if (update <= 0) {
+            mv.addObject("message", "업데이트 실패");
+            mv.setViewName("/error/errorMessage");
+        } else {
+            mv.setViewName("/menus/returnMessage");
+        }
+        return mv;
+    }
+    @GetMapping("delete")
+    public ModelAndView delete(ModelAndView mv){
+        mv.setViewName("menus/delete");
+        return mv;
+    }
+
+    @PostMapping("delete")
+    public ModelAndView deleteMenu(ModelAndView mv, MenuDTO menuDTO){
+        int delete = menuService.delete(menuDTO);
+
+        if (delete <= 0) {
+            mv.addObject("message", "업데이트 실패");
+            mv.setViewName("/error/errorMessage");
+        } else {
+            mv.setViewName("/menus/returnMessage");
+        }
+        return mv;
+    }
+
 }
 
